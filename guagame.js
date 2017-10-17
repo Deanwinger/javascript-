@@ -3,6 +3,7 @@ var GuaGame = function(fps) {
         actions: {},
         keydowns: {},
     }
+
     var canvas = document.querySelector('#id-canvas')
     var context = canvas.getContext('2d')
     g.canvas = canvas
@@ -48,6 +49,6 @@ var GuaGame = function(fps) {
     setTimeout(function(){
       runloop()
     }, 1000/window.fps)
-    
+
     return g
 }
