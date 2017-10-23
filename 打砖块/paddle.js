@@ -3,7 +3,7 @@ var Paddle = function(){
   var o = {
     image: image,
     x: 100,
-    y: 500,
+    y: 250,
     speed: 20,
   }
 
@@ -15,8 +15,8 @@ var Paddle = function(){
   }
   o.moveRight = function(){
     o.x += o.speed
-    if (o.x > 800-o.image.width){
-      o.x = 800-o.image.width
+    if (o.x > 400-o.image.width){
+      o.x = 400-o.image.width
     }
   }
 

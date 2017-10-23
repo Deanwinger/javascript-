@@ -18,7 +18,9 @@
   </head>
   <body>
     <!-- #0 canvas -->
-    <canvas id="id-canvas" width="800" height="600"></canvas>
+    <canvas id="id-canvas" width="400" height="300"></canvas>
+    <hr>
+    <input id=id-input-speed type="range" value="1">
     <script>
     //tip one 最外层只能有函数, 不能有变量
     var loadlevel = function(n){
@@ -33,14 +35,40 @@
       }
       return blocks
     }
+
+    var blocks = []
+    var enableDebugMode = function(enable){
+      if (!enable){
+        return
+      }
+
+    window.paused = false
+    window.addEventListener('keydown', function(event){
+      var k = event.key
+      if (event.key == 'p'){
+        window.paused = !window.paused
+      }else if ('1234567'.includes(k)){
+        blocks = loadlevel(Number(k))
+        }
+      })
+    //控制速度
+      document.querySelector('#id-input-speed').addEventListener('input', function(event) {
+      var input = event.target
+      // log(event, input.value)
+      window.fps = Number(input.value)
+      })
+    }
+
     var _main = function() {
-      var game = GuaGame(30)
+      enableDebugMode(true)
+
+      var game = GuaGame(10)
 
       var paddle = Paddle()
 
       var ball = Ball()
       //#1 document
-      var blocks = loadlevel(1)
+      blocks = loadlevel(1)
 
 
       var paused = false
@@ -56,17 +84,8 @@
         ball.fire()
       })
 
-      window.addEventListener('keydown', function(event){
-        var k = event.key
-        if (event.key == 'p'){
-          paused = !paused
-        }else if ('1234567'.includes(k)){
-          blocks = loadlevel(Number(k))
-        }
-      })
-
       game.update = function(){
-        if (paused){
+        if (window.paused){
           return
         }
         ball.move()
