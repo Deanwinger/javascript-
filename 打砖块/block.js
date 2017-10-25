@@ -9,9 +9,13 @@ var Block = function(position){
     w: image.width,
     h: image.height,
     alive: true,
+    lifes: p[2] || 1,
   }
   o.kill = function() {
-    o.alive = false
+    o.lifes--
+    if (o.lifes < 1){
+      o.alive = false
+    }
   }
   o.collide = function(b){
     return o.alive && (recIntersects(o, b) || recIntersects(b, o))
