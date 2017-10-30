@@ -10,6 +10,10 @@ var imageFromPath = function(path){
   return img
 }
 
+var imageByName =function(name){
+
+}
+
 var recIntersects = function(a, b){
   if (b.y > a.y && b.y < a.y + a.image.height){
     if ( b.x > a.x && b.x < a.x + a.image.width){
