@@ -1,10 +1,10 @@
 var Ball = function(game){
   var o = game.imageByName('ball')
-  o.x: 300,
-  o.y: 100,
-  o.speedX: 10,
-  o.speedY: 10,
-  o.fired: false,
+  o.x = 300,
+  o.y = 100,
+  o.speedX = 10,
+  o.speedY = 10,
+  o.fired = false,
 
   o.fire = function() {
     o.fired = true
