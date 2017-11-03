@@ -12,7 +12,6 @@
         return blocks;
     };
 
-    var blocks = [];
     var enableDebugMode = function(game, enable) {
         if (!enable) {
             return;
@@ -36,8 +35,6 @@
     };
 
     var _main = function() {
-
-
         var images = {
             ball: 'ball.png',
             block: 'block.png',
@@ -46,83 +43,17 @@
 
 
         var game = GuaGame(30, images, function(g){
-            var paddle = Paddle(game);
-            var ball = Ball(game);
-            //#1 document
-            blocks = loadlevel(game, 1);
-
-            var score = 0;
-            var paused = false;
-            game.registerAction('a', function() {
-                paddle.moveLeft();
-            });
-
-            game.registerAction('d', function() {
-                paddle.moveRight();
-            });
-
-            game.registerAction('f', function() {
-                ball.fire();
-            });
-
+            var scene = Scene(game);
             game.update = function() {
                 if (window.paused) {
                     return;
                 }
-                ball.move();
-                if (paddle.collide(ball)) {
-                    ball.bounceBack();
-                }
-                for (var i = 0; i < blocks.length; i++) {
-                    var block = blocks[i];
-                    if (block.collide(ball)) {
-                        block.kill();
-                        ball.bounceBack();
-                        //更新分数
-                        score += 100;
-                    }
-                }
-
+                scene.update();
             };
 
-            //mouse event
-            var enableDrag = false;
-            game.canvas.addEventListener('mousedown', function(event){
-                var x = event.offsetX;
-                var y = event.offsetY;
-                if (ball.hasPoint(x, y)){
-                    enableDrag = true;
-                }
-            });
-
-            game.canvas.addEventListener('mousemove', function(event){
-                var x = event.offsetX;
-                var y = event.offsetY;
-                if (enableDrag){
-                    // log(x, y, 'drag')
-                    ball.x = x;
-                    ball.y = y;
-                }
-            });
-
-            game.canvas.addEventListener('mouseup', function(event) {
-                var x = event.offsetX;
-                var y = event.offsetY;
-                log(x, y, 'up');
-                enableDrag = false;
-            });
-
             game.draw = function() {
-                game.drawImage(paddle);
-                game.drawImage(ball);
-                for (var i = 0; i < blocks.length; i++) {
-                    if (blocks[i].alive) {
-                        game.drawImage(blocks[i]);
-                    }
-                }
-                //draw text
-                game.context.fillText('分数: ' + score, 10, 280);
-
+                //s.draw
+                scene.draw();
             };
         });
 
