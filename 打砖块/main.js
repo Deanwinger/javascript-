@@ -40,21 +40,9 @@
             block: 'block.png',
             paddle: 'paddle.png',
         };
-
-
         var game = GuaGame(30, images, function(g){
-            var scene = Scene(game);
-            game.update = function() {
-                if (window.paused) {
-                    return;
-                }
-                scene.update();
-            };
-
-            game.draw = function() {
-                //s.draw
-                scene.draw();
-            };
+          var s = Scene(g);
+          g.runWithScene(s);
         });
 
         enableDebugMode(game, true);

@@ -1,7 +1,6 @@
 var Scene = function(game) {
     var s = {
         game: game,
-
     };
     var paddle = Paddle(game);
     var ball = Ball(game);
@@ -35,7 +34,15 @@ var Scene = function(game) {
 
     };
     s.update = function() {
+        if (window.paused) {
+            return;
+        }
         ball.move();
+        if (ball.y > paddle.y){
+          //跳转到游戏结束的画面
+          var end = SceneEnd(game);
+          game.replaceScene(end);
+        }
         // 判断相撞
         if (paddle.collide(ball)) {
             // 这里应该调用一个 ball.反弹() 来实现
