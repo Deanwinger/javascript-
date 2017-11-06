@@ -40,7 +40,7 @@ var Scene = function(game) {
         ball.move();
         if (ball.y > paddle.y){
           //跳转到游戏结束的画面
-          var end = SceneEnd(game);
+          var end = SceneEnd.new(game);
           game.replaceScene(end);
         }
         // 判断相撞
